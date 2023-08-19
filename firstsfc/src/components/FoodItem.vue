@@ -2,7 +2,8 @@
     <div v-on:click="countClicks">
       <h2>{{ foodName }}</h2>
       <p>{{ foodDesc }}</p>
-      <img src="../assets/apple.jpg" v-show="isFavorite">
+      <img src="../assets/apple.jpg" v-show="foodIsFavorite">
+      <button v-on:click="toggleFavorite">Favorite</button>
       <p id="red">You have clicked me {{ count }} times.</p>
     </div>
   </template>
@@ -13,12 +14,16 @@
         return {
           name: 'Apples',
           message: 'I like apples',
-          count: 0
+          count: 0,
+          foodIsFavorite: this.isFavorite
         }
       },
       methods: {
         countClicks() {
           this.count = this.count + 1;
+        },
+        toggleFavorite() {
+            this.foodIsFavorite = !this.foodIsFavorite
         }
       },
       props: {
@@ -29,7 +34,15 @@
         foodDesc: {
             type: String,
             required: false,
-            default: 'This is the default description.'
+            default: 'This is the default description.',
+            validator: function(value) {
+                if (value.length > 20 && value.length < 50) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
         },
         isFavorite: {
             type: Boolean,
