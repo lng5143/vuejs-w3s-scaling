@@ -6,7 +6,8 @@
       key="x.name"
       v-bind:food-name="x.name"
       v-bind:food-desc="x.desc"
-      v-bind:is-favorite="x.favorite" />
+      v-bind:is-favorite="x.favorite"
+      v-on:toggle-favorite="receiveEmit" />
     <!-- <food-item 
       food-name="Apples"
       food-desc="Apples are a type of fruit that grow on trees"
@@ -43,6 +44,14 @@ export default {
             desc: 'Cake is something sweet that tastes good.',
             favorite: false }
         ]
+    }
+  },
+  methods: {
+    receiveEmit(foodId) {
+      const foundFood = this.foods.find(
+        food => food.name === foodId
+      );
+      foundFood.favorite = !foundFood.favorite;
     }
   }
 }

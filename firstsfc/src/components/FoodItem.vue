@@ -2,7 +2,7 @@
     <div v-on:click="countClicks">
       <h2>{{ foodName }}</h2>
       <p>{{ foodDesc }}</p>
-      <img src="../assets/apple.jpg" v-show="foodIsFavorite">
+      <img src="../assets/apple.jpg" v-show="isFavorite">
       <button v-on:click="toggleFavorite">Favorite</button>
       <p id="red">You have clicked me {{ count }} times.</p>
     </div>
@@ -23,7 +23,7 @@
           this.count = this.count + 1;
         },
         toggleFavorite() {
-            this.foodIsFavorite = !this.foodIsFavorite
+            this.$emit('toggle-favorite', this.foodName)
         }
       },
       props: {
